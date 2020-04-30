@@ -1,0 +1,25 @@
+create database test;
+use test;
+
+drop table if exists users;
+create table  users(
+id int primary key not  null auto_increment,
+uName varchar(30) not null comment '用户名',
+uNo varchar(30) not null comment '用户编码',
+sex int not null comment '性别,0为男,1为女',
+age int not null comment '年龄',
+idCard varchar(18) not null comment '身份证号码,非空唯一',
+address varchar(255) comment '地址',
+des varchar(255) comment '描述',
+unique index (idCard asc) using btree
+)engine=INNODB character set=utf8 collate=utf8_general_ci row_format=dynamic comment '用户表';
+
+insert into users(uName,uNo,sex,age,idCard,address,des) values("zxp","s1000",0,21,'475703199809051938','东莞','我很帅');
+
+insert into users(uName,uNo,sex,age,idCard,address,des) values("zxp1","s1001",0,21,'401103194809056931','广州','我很帅1');
+
+insert into users(uName,uNo,sex,age,idCard,address,des) values("zxp2","s1002",0,21,'421103199809056938','北京','我很帅2');
+
+insert into users(uName,uNo,sex,age,idCard,address,des) values("zxp3","s1003",0,21,'783103199809056938','澳门','我很帅3');
+
+insert into users(uName,uNo,sex,age,idCard,address,des) values("zxp4","s1004",0,21,'464453199809056938','深圳','我很帅4');
