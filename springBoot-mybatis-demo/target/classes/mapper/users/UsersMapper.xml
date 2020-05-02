@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.dao.UsersDao">
+
+	<!--
+	开启mybatis二级缓存,当有select语句时会缓存select结果,当发生update、insert、delete时会删除二级缓存
+	-->
+	<cache eviction="FIFO"
+		   flushInterval="60000"
+		   size="512"
+		   readOnly="true"/>
+
+	<resultMap id="usersMap" type="com.fly.entity.Users">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+		<result column="uname" jdbcType="VARCHAR" property="uname"/>
+		<result column="uno" jdbcType="VARCHAR" property="uno"/>
+		<result column="sex" jdbcType="INTEGER" property="sex"/>
+		<result column="age" jdbcType="INTEGER" property="age"/>
+		<result column="idCard" jdbcType="VARCHAR" property="idCard"/>
+		<result column="address" jdbcType="VARCHAR" property="address"/>
+		<result column="des" jdbcType="VARCHAR" property="des"/>
+		<!--
+			association标签:用于一对一的关系映射
+			collection标签:用于一对多的关系映射
+		-->
+	</resultMap>
+
+	<!--sql片段 -->
+	<sql id="column_List">
+        id,
+		uname,
+		uno,
+		sex,
+		age,
+		idCard,
+		address,
+		des
+    </sql>
+
+	<!-- 因为在application.properties中配置了别名的包路径(mybatis.type-aliases-package=com.fly.entity)
+	所以可以直接使用类名
+	-->
+	<insert id="addUsers" parameterType="Users">
+		insert into users(uName,uNo,sex,age,idCard,address,des)
+		values(#{users.uname},#{users.uno},#{users.sex},#{users.age},#{users.idCard},
+		#{users.address},#{users.des});
+	</insert>
+
+	<update id="upUsers" parameterType="Users">
+		update users set uName=#{users.uname},uno=#{users.uno},sex=#{users.sex},
+		age=#{users.age},idcard=#{users.idCard},address=#{users.address},des=#{users.des}
+		where id=#{users.id}
+	</update>
+
+	<delete id="delUsersById" parameterType="java.lang.Integer">
+		delete from  users where id=#{id}
+	</delete>
+
+	<select id="getUsersById" parameterType="java.lang.Integer" resultType="Users">
+		select <include refid="column_List"/> from users where id=#{id}
+	</select>
+
+	<select id="queryUsresListByUsers" parameterType="Users" resultMap="usersMap">
+		select <include refid="column_List"/> from  users where 1=1
+		<if test="users.uname!=null">
+			and uname like concat('%',#{users.uname},'%')
+		</if>
+		<if test="users.uno!=null">
+			or uno like concat('%',#{users.uno},'%')
+		</if>
+		<if test="users.sex!=null">
+			or sex=#{users.sex}
+		</if>
+		<if test="users.age!=null">
+			 or age between #{users.age} and #{users.age}
+		</if>
+		<if test="users.idCard!=null">
+			or idCard=#{users.idCard}
+		</if>
+		<if test="users.address!=null">
+			or address like concat('%',#{users.address},'%')
+		</if>
+		<if test="users.des!=null">
+			or des like concat('%',#{users.des},'%')
+		</if>
+		limit #{current},#{size}
+	</select>
+
+	<select id="getTotal" parameterType="Users" resultType="java.lang.Integer">
+		select COUNT(1) from  users where 1=1
+		<if test="users.uname!=null">
+			and uname like concat('%',#{users.uname},'%')
+		</if>
+		<if test="users.uno!=null">
+			or uno like concat('%',#{users.uno},'%')
+		</if>
+		<if test="users.sex!=null">
+			or sex=#{users.sex}
+		</if>
+		<if test="users.age!=null">
+			or age between #{users.age} and #{users.age}
+		</if>
+		<if test="users.idCard!=null">
+			or idCard=#{users.idCard}
+		</if>
+		<if test="users.address!=null">
+			or address like concat('%',#{users.address},'%')
+		</if>
+		<if test="users.des!=null">
+			or des like concat('%',#{users.des},'%')
+		</if>
+	</select>
+
+	<insert id="batchAddUsers">
+		<!--
+		 collection是需要遍历的集合
+		 item是遍历后的单个元素
+		 index是遍历后单个元素的下标
+		 open是遍历开始时拼接的内容
+		 separator表示每次遍历后追加的内容
+		 close表示遍历结束后追加的内容
+		 例子:
+		  SELECT * FROM users WHERE ID in
+  		  <foreach item="users" index="index" collection="usersList" open="(" separator="," close=")">
+  		   #{users.id}
+          </foreach>
+		 最后解析成的sql为: select * from usres where id in (1,2,3)
+		 -->
+
+			insert into users(uName,uNo,sex,age,idCard,address,des) values
+			<foreach item="item" index="index" collection="usersList" separator=",">
+			(
+				#{item.uname},#{item.uno},#{item.sex},#{item.age},#{item.idCard},
+				#{item.address},#{item.des}
+			)
+			</foreach>
+	</insert>
+
+	<!-- 批量更新  -->
+	<update id="batchUpdateUsers" parameterType="java.util.List">
+		<!--批量更新方式1:通过for循环参数集合更新
+			注意这种方式需要在jdbc连接url加上&allowMultiQueries=true,allowMultiQueries表示是否允许多个查询
+			最后的url为:jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowMultiQueries=true
+		-->
+		<foreach item="users" index="index" collection="usersList" open="" close="" separator=";">
+			update  users
+			<set>
+				<if test="users.uname!=null">
+					uName=#{users.uname},
+				</if>
+				<if test="users.uno!=null">
+					uno=#{users.uno},
+				</if>
+				<if test="users.sex!=null">
+					sex=#{users.sex},
+				</if>
+				<if test="users.age!=null">
+					age=#{users.age},
+				</if>
+				<if test="users.idCard!=null">
+					idCard=#{users.idCard},
+				</if>
+				<if test="users.address!=null">
+					address=#{users.address},
+				</if>
+				<if test="users.des!=null">
+					des=#{users.des},
+				</if>
+			</set>
+			where id=#{users.id}
+		</foreach>
+
+		<!--
+			批量更新方式2:通过case when条件判断更新
+
+			update users
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="uname=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.uname!=null">
+						when id=#{item.id} then #{item.uname}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="uno=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.uno!=null">
+						when id=#{item.id} then #{item.uno}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sex=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.sex!=null">
+						when id=#{item.id} then #{item.sex}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="age=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.age!=null">
+						when id=#{item.id} then #{item.age}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="idCard=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.idCard!=null">
+						when id=#{item.id} then #{item.idCard}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="address=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.address!=null">
+						when id=#{item.id} then #{item.address}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="des=case" suffix="end,">
+				<foreach item="item" index="index" collection="usersList">
+					<if test="item.des!=null">
+						when id=#{item.id} then #{item.des}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		where
+		<foreach item="item" index="index" collection="usersList">
+			id=#{item.id}
+		</foreach>
+
+		-->
+
+	</update>
+
+	<delete id="batchDelUsers">
+		delete from users where id in
+		<foreach item="id" index="index" collection="ids" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+
+	</delete>
+
+</mapper>
