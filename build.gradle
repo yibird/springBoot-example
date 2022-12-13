@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.6'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+// 所有项目配置
+allprojects {
+    group 'com.fly'
+    version '1.0-SNAPSHOT'
+}
+
+// 子项目配置
+subprojects {
+    // JAVA源兼容版本
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    // JAVA目标编译版本
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenLocal()
+//        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+//        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'https://maven.aliyun.com/repository/central' }
+//        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-test'
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+

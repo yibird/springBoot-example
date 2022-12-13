@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'com.fly'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // mysql8.0依赖
+    implementation 'mysql:mysql-connector-java:8.0.30'
+    // druid数据连接池SpringBoot启动器
+    implementation 'com.alibaba:druid-spring-boot-starter:1.1.17'
+    // mybatisPlus ORM框架SpringBoot启动器
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+    // 分析SQL执行时长依赖
+    implementation 'p6spy:p6spy:3.9.1'
+    // 基于springboot的快速集成多数据源的启动器
+    implementation 'com.baomidou:dynamic-datasource-spring-boot-starter:3.5.2'
+    // 引用 springBoot-common 公共模块依赖
+    implementation project(':springBoot-common')
+}
+
+test {
+    useJUnitPlatform()
+}
