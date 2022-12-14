@@ -10,6 +10,14 @@ repositories {
 }
 
 dependencies {
+
+    // jedis依赖,jedis是redis官方发布的Java redis客户端库,底层直接操作redis命令
+    implementation "redis.clients:jedis:4.3.1"
+    // lettuce依赖,lettuce是一个Redis客户端库,用于构建非阻塞反应式应用程序
+    implementation 'io.lettuce:lettuce-core:6.2.2.RELEASE'
+    // springBoot集成redis启动器
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
