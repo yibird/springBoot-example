@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2 class="title">登录</h2>
+<form action="/doLogin" method="post" class="form">
+    <div class="form-item">
+        <label>用户名:</label>
+        <input type="text" name="username" placeholder="请输入用户名"/>
+    </div>
+    <div class="form-item">
+        <label>密码:</label>
+        <input type="password" name="password" placeholder="请输入密码"/>
+    </div>
+    <div class="form-item">
+        <label></label>
+        <button>登录</button>
+    </div>
+</form>
+</body>
+</html>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        padding: 20px 0;
+        text-align: center;
+    }
+   .form{
+       text-align: center;
+   }
+   .form-item{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       margin-bottom:10px;
+   }
+   .form-item label{
+       width: 80px;
+       text-align: left;
+       font-size: 16px;
+       color: #333;
+
+   }
+    .form-item input{
+        border:1px solid #ddd;
+        border-radius:2px;
+        height: 36px;
+        line-height: 36px;
+        outline: none;
+        padding: 0 10px;
+    }
+    .form-item button{
+        outline: none;
+        background-color: #1890ff;
+        border:1px solid #1890ff;
+        color: #fff;
+        display: inline-block;
+        padding:8px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>

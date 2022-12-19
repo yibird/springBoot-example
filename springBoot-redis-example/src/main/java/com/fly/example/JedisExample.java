@@ -1,4 +1,4 @@
-package com.fly.jedis;
+package com.fly.example;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

@@ -15,4 +15,8 @@ include 'springBoot-websocket-example'
 include 'springBoot-xxl-job-example'
 include 'springBoot-elasticsearch-example'
 include 'springBoot-common'
+include 'springBoot-springSecurity-example:springSecurity-example01'
+findProject(':springBoot-springSecurity-example:springSecurity-example01')?.name = 'springSecurity-example01'
+include 'springBoot-springSecurity-example:springSecurity-example01'
+findProject(':springBoot-springSecurity-example:springSecurity-example01')?.name = 'springSecurity-example01'
 

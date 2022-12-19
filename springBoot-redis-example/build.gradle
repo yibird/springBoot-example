@@ -17,6 +17,12 @@ dependencies {
     implementation 'io.lettuce:lettuce-core:6.2.2.RELEASE'
     // springBoot集成redis启动器
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // faker的java客户端,用户模拟数据,datafaker是faker的一个分支
+    implementation 'net.datafaker:datafaker:1.7.0'
+    // mysql8.0依赖
+    implementation 'mysql:mysql-connector-java:8.0.30'
+    // mybatisPlus ORM框架SpringBoot启动器
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

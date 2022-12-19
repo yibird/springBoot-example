@@ -4,13 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -20,7 +18,7 @@ import java.util.stream.Stream;
  * @SpringBootTest标识当前类是一个SpringBoot测试类, classes用于指定SpringBoot启动类
  */
 @SpringBootTest(classes = RedisApplication.class)
-public class RedisTest {
+public class RedisKeyTest {
 
     @Autowired
     RedisTemplate redisTemplate;
@@ -76,13 +74,37 @@ public class RedisTest {
         redisTemplate.rename("k_04","k_004");
         System.out.println("k_004:"+ops.get("k_004")); // k_004:v_04
 
-        // 用于序列化指定key,并返回被序列化的值
+        // 用于序列化指定key,并返回序列化后的值
         byte[] keyBytes = redisTemplate.dump("k_004");
         /**
          * restore(K key, byte[] value, long timeToLive, TimeUnit unit):将DUMP的结果反序列化回Redis
-         *
+         * - key:序列化value存储的key。
+         * - value:反序列的值。
+         * - timeToLive:ttl,key的生存时间。
+         * - unit:ttl时间单位。
          */
-        redisTemplate.restore("k_0004",keyBytes,1000L,TimeUnit.MILLISECONDS);
+        redisTemplate.restore("k_0004",keyBytes,60000L,TimeUnit.MILLISECONDS);
         System.out.println("k_0004:"+ops.get("k_0004")); // k_0004:v_04
+
+        // rename(K oldKey, K newKey):修改key的名称,将oldKey修改为newKey
+        redisTemplate.rename("k_0004","k_04");
+        System.out.println("k_04:"+ops.get("k_04")); // k_04:v_04
+
+        // move(K key, final int dbIndex):将key移动到指定数据库,默认所有key都存储在0号数据库
+        Boolean moveBool = redisTemplate.move("k_04", 1);
+        System.out.println("moveBool:"+moveBool); // moveBool:true
+        Thread.sleep(200);
+        System.out.println("k_04:"+ops.get("k_04")); // k_04:null
+
+        // 获取Lettuce连接工厂
+        LettuceConnectionFactory connFactory = (LettuceConnectionFactory)redisTemplate.getConnectionFactory();
+        // 切换数据库(切换至1号数据库)
+        connFactory.setDatabase(1);
+        // 设置连接工厂
+        redisTemplate.setConnectionFactory(connFactory);
+        System.out.println("k_04:"+redisTemplate.opsForValue().get("k_04")); // k_04:v_04
+
+        // 从数据库中随机获取一个key
+        System.out.println("randomKey:"+redisTemplate.randomKey()); // randomKey:k_004
     }
 }
