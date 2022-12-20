@@ -1,7 +1,6 @@
 package com.fly.config;
 
 import com.fly.config.filter.LoginFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
+    /**
+     * 将AuthenticationManager注入到Spring IOC容器
+     * @return
+     * @throws Exception
+     */
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -79,7 +83,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable();
-
         /**
          * 在指定的过滤器类的位置添加过滤器,在同一位置注册多个过滤器意味着它们的排序是不确定的。
          * 更具体地说,在同一位置注册多个过滤器不会覆盖现有过滤器

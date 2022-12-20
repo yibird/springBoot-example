@@ -1,6 +1,5 @@
 package com.fly.config;
 
-
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -10,11 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * Kaptcha配置类
+ * Kaptcha配置类,用于生成验证码
  */
 @Configuration
 public class KaptchaConfig {
-
     @Bean
     public Producer producer() {
         Properties properties = new Properties();
