@@ -2,6 +2,7 @@ package com.fly.config;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,12 +13,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         /**
          * 对于所有请求都需要认证授权,匹配/index请求则放行请求,对于任何请求都必须在
          * 认证成功后才能访问,认证方式采用form表单认证。
          */
         http.authorizeRequests()
-                .mvcMatchers("/index","/login.html")
+                .mvcMatchers("/index", "/login.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

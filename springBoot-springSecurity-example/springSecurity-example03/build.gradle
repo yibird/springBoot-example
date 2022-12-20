@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'com.fly'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    // lombok依赖
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok'
+    // mysql8.0依赖
+    implementation 'mysql:mysql-connector-java:8.0.30'
+    // druid数据连接池SpringBoot启动器
+    implementation 'com.alibaba:druid-spring-boot-starter:1.1.17'
+    // mybatisPlus ORM框架SpringBoot启动器
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+}
+
+test {
+    useJUnitPlatform()
+}
