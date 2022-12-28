@@ -31,4 +31,8 @@ include 'springBoot-springSecurity-example:springSecurity-authority01'
 findProject(':springBoot-springSecurity-example:springSecurity-authority01')?.name = 'springSecurity-authority01'
 include 'springBoot-springSecurity-example:springSecurity-authority02'
 findProject(':springBoot-springSecurity-example:springSecurity-authority02')?.name = 'springSecurity-authority02'
+include 'springBoot-springSecurity-example:springSecurity-authority03'
+findProject(':springBoot-springSecurity-example:springSecurity-authority03')?.name = 'springSecurity-authority03'
+include 'springBoot-springSecurity-example:springSecurity-passwordEncoder'
+findProject(':springBoot-springSecurity-example:springSecurity-passwordEncoder')?.name = 'springSecurity-passwordEncoder'
 

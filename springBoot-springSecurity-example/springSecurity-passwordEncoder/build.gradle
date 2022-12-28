@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'com.fly'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
+}
+
+test {
+    useJUnitPlatform()
+}

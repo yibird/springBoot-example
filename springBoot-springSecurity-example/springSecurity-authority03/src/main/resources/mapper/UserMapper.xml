@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.mapper.UserMapper">
+    <select id="loadUserByUsername" resultType="com.fly.model.User"
+            parameterType="java.lang.String">
+        SELECT id,username,`password`,`enable`,accountNonExpired,
+               accountNonLock,credentialsNonExpired FROM
+        sys_user WHERE username =#{username};
+    </select>
+    <select id="getAuthorityByUid" resultType="java.lang.String"
+            parameterType="java.lang.Integer">
+        SELECT menu_key FROM sys_menu WHERE menu_type=2 AND id IN
+             (SELECT m_id FROM sys_menu_role  WHERE r_id =
+                 (SELECT r_id FROM sys_user_role WHERE u_id = #{uid}));
+    </select>
+</mapper>
