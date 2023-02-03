@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'com.fly'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // SpringBoot WebSocket启动器
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    /**
+     * netty-socketio是一个开源的Socket.io服务器端的一个java的实现,
+     * 它基于Netty框架实现,可用于服务端推送消息给客户端。
+     */
+    implementation 'com.corundumstudio.socketio:netty-socketio:1.7.22'
+    // netty依赖
+    implementation "io.netty:netty-all:4.1.87.Final"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}

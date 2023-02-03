@@ -35,4 +35,5 @@ include 'springBoot-springSecurity-example:springSecurity-authority03'
 findProject(':springBoot-springSecurity-example:springSecurity-authority03')?.name = 'springSecurity-authority03'
 include 'springBoot-springSecurity-example:springSecurity-passwordEncoder'
 findProject(':springBoot-springSecurity-example:springSecurity-passwordEncoder')?.name = 'springSecurity-passwordEncoder'
+include 'springBoot-webScoket-example'
 
