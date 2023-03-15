@@ -9,7 +9,8 @@ allprojects {
     group 'com.fly'
     version '1.0-SNAPSHOT'
 }
-
+jar.enabled = true
+bootJar.enabled = false
 // 子项目配置
 subprojects {
     // JAVA源兼容版本

@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fly.annotation.Sensitive;
 import com.fly.common.model.BaseModel;
+import com.fly.enums.SensitiveStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,8 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 @TableName("sys_user")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User extends BaseModel {
     /**
      * 表主键,type用于指定主键策略,支持如下策略:
@@ -31,19 +35,28 @@ public class User extends BaseModel {
     @TableId(type = IdType.AUTO)
     private Long id;
     private String username;
+    @Sensitive(strategy = SensitiveStrategy.PASSWORD)
     private String password;
+    @Sensitive(strategy = SensitiveStrategy.CHINESE_NAME)
     private String nickname;
     private Integer age;
     private Integer sex;
+
+    @Sensitive(strategy = SensitiveStrategy.PHONE)
     private String phone;
+    @Sensitive(strategy = SensitiveStrategy.EMAIL)
     private String email;
     // @TableField用于指定表字段,exist表示是否是数据表字段
     @TableField(value = "idcard", exist = true)
+    @Sensitive(strategy = SensitiveStrategy.ID_CARD)
     private String idCard;
     private String avatar;
+    @Sensitive(strategy = SensitiveStrategy.ADDRESS)
     private String address;
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthday;
+    @Sensitive(strategy = SensitiveStrategy.BANK_CARD)
+    private String bankCard;
 }

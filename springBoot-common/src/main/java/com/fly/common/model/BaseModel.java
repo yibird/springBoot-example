@@ -13,6 +13,9 @@ import java.util.Date;
 /**
  * 基础模型类,包含常用的字段
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseModel implements Serializable {
     private static final long serialVersionUID = 8910620530898877280L;
     public String remark;

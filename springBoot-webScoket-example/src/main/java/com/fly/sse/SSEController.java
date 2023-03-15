@@ -60,13 +60,11 @@ public class SSEController {
         // 发送消息,发送格式化为单个SSE“数据”行的对象
         sseEmitter.send("hello sse!");
 
-        /**
-         * 通过调度线程池每隔1s使用SseEmitter向客户端推送当前时间
-         */
+        // 通过调度线程池每隔1s使用SseEmitter向客户端推送当前时间
         ScheduledThreadPoolExecutor pool = new ScheduledThreadPoolExecutor(1);
+        SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         pool.scheduleAtFixedRate(()->{
             try {
-                SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 sseEmitter.send(format.format(new Date()),MediaType.TEXT_PLAIN);
             } catch (IOException e) {
                 throw new RuntimeException(e);

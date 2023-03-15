@@ -36,4 +36,6 @@ findProject(':springBoot-springSecurity-example:springSecurity-authority03')?.na
 include 'springBoot-springSecurity-example:springSecurity-passwordEncoder'
 findProject(':springBoot-springSecurity-example:springSecurity-passwordEncoder')?.name = 'springSecurity-passwordEncoder'
 include 'springBoot-webScoket-example'
+include 'bean-convert-example'
+include 'springBoot-springMVC-example'
 

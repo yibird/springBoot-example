@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+}
+
+group 'com.fly'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // lombok依赖
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    /**
+     * commons是apache提供了工具包,commons-beanutils是commons中的子模块之一。
+     * 提供了对于JavaBean进行各种操作,例如克隆对象、属性拷贝等等
+     */
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    // spring提供的JavaBean操作工具库
+    implementation 'org.springframework:spring-beans:5.3.24'
+
+    implementation 'cn.hutool:hutool-all:5.8.11'
+
+    // cglib是一个功能强大、高性能和高质量的代码生成库,用于在运行时扩展JAVA类和实现接口。
+    implementation 'cglib:cglib-nodep:3.3.0'
+
+    /**
+     * Dozer是一个JavaBean映射工具库。它支持简单的属性映射、复杂类型映射、双向映射 、
+     * 隐式显式的映射、递归映射。
+     */
+    implementation 'net.sf.dozer:dozer:5.5.1'
+
+    /**
+     * Orika是java Bean映射框架,可以实现从一个对象递归拷贝数据至另一个对象,
+     * Orika使用字节码生成器创建开销最小的快速映射,比其他基于反射方式实现更快
+     * (比Dozer快8-10倍,内存消耗大概是Dozer一半多点)
+     */
+    implementation 'ma.glasnost.orika:orika-core:1.5.4'
+
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    annotationProcessor  'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}

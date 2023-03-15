@@ -3,6 +3,7 @@ package com.fly.domain.query;
 import com.fly.common.query.Query;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 

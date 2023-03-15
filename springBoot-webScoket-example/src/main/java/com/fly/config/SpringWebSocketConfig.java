@@ -1,13 +1,17 @@
 package com.fly.config;
 
-
-import com.fly.ws.SpringWebSocketHandle;
+import com.fly.controller.SpringWebSocketHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+/**
+ * SpringBoot集成WebSocket配置类。首先使用@EnableWebSocket启用WebSocket支持,
+ * 实现了WebSocketConfigurer接口并重写registerWebSocketHandlers方法,
+ * 通过WebSocketHandlerRegistry实例根据WebSocket处理器和指定URL进行注册。
+ */
 @Configuration
 // 启用WebSocket
 @EnableWebSocket

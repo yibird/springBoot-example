@@ -6,13 +6,24 @@ import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.fly.interceptor.DesensitizationInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 @MapperScan("com.fly.mapper")
 public class MybatisPlusConfig {
+
+//    @Bean
+//    @Order(-1)
+//    public DesensitizationInterceptor desensitizationInterceptor(){
+//        return new DesensitizationInterceptor();
+//    }
 
     /**
      * MybatisPlus分页插件
@@ -37,6 +48,7 @@ public class MybatisPlusConfig {
 //        interceptor.addInnerInterceptor(new IllegalSQLInnerInterceptor());
         return interceptor;
     }
+
 
     /**
      * 自定义MybatisPlus配置
