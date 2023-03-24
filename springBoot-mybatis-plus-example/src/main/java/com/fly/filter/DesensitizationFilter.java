@@ -7,14 +7,22 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * @Description XXFileter
+ * 脱敏过滤器,实现了Fastjson2提供了ValueFilter接口,用于对JSON字段值处理
+ * @Description DesensitizationFilter
  * @Author zchengfeng
  * @Date 2023/3/15 17:06
  */
-public class XXFileter implements ValueFilter {
+public class DesensitizationFilter implements ValueFilter {
     // 缓存容器,用于提升反射性能,key以className + fieldName,value为对应字段
     private final Map<String, Field> fieldMap = new HashMap();
 
+    /**
+     * value处理方法
+     * @param object 字段对象
+     * @param name 字段名称
+     * @param value 字段值
+     * @return 处理后的字段值
+     */
     @Override
     public Object apply(Object object, String name, Object value) {
         Class<?> objectClass = object.getClass();

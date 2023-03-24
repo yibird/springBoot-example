@@ -1,6 +1,7 @@
 package com.fly.utils;
 
 import com.fly.annotation.Sensitive;
+import com.fly.enums.SensitiveStrategy;
 
 /**
  * @Description 脱敏工具类
@@ -66,5 +67,10 @@ public class DesensitizationUtil {
         String prefix = target.substring(0, start);
         String suffix = target.substring(end);
         return prefix + replace(target.substring(start, end), regex, placeholder) + suffix;
+    }
+
+    public static String desensitization(String target, SensitiveStrategy strategy) {
+        if (target == null) return null;
+        return replace(target,strategy.getRegex(),strategy.getDesensitize().apply("*"));
     }
 }
