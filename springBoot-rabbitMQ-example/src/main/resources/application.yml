@@ -2,6 +2,7 @@ spring:
   rabbitmq:
     username: test # 用户名
     password: test # 密码
-    port: 5672 #端口
-    host: 192.168.159.128 # 连接主机
+    port: 5672 # 端口
+    host: 192.168.98.128 # 连接主机
     virtual-host: VHOST # 连接虚拟主机
+    publisher-confirm-type: correlated # 发布确认模式
