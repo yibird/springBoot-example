@@ -1,0 +1,25 @@
+ext {
+    version = [
+            "lombokVersion"   : "1.18.26",
+            "junitVersion"    : "5.10.1",
+            "mysqlVersion"    : "8.0.32",
+            "mapstructVersion": "1.5.3.Final",
+            "jimmerVersion"   : "0.8.78",
+            "mpVersion"       : "3.5.5",
+            "dynamicDSVersion": "4.3.0",
+            "guavaVersion"    : "33.0.0-jre",
+    ]
+    dependencies = [
+            "org.projectlombok:lombok"                            : "org.projectlombok:lombok:${version.lombokVersion}",
+            "org.junit.jupiter:junit-jupiter-api"                 : "org.junit.jupiter:junit-jupiter-api:${version.junitVersion}",
+            "org.junit.jupiter:junit-jupiter-engine"              : "org.junit.jupiter:junit-jupiter-engine:${version.junitVersion}",
+            "com.mysql:mysql-connector-j"                         : "com.mysql:mysql-connector-j:${version.mysqlVersion}",
+            "org.mapstruct:mapstruct"                             : "org.mapstruct:mapstruct:${version.mapstructVersion}",
+            "org.mapstruct:mapstruct-processor"                   : "org.mapstruct:mapstruct-processor:${version.mapstructVersion}",
+            "org.babyfish.jimmer:jimmer-spring-boot-starter"      : "org.babyfish.jimmer:jimmer-spring-boot-starter:${version.jimmerVersion}",
+            "org.babyfish.jimmer:jimmer-apt"                      : "org.babyfish.jimmer:jimmer-apt:${version.jimmerVersion}",
+            "com.baomidou:mybatis-plus-spring-boot3-starter"      : "com.baomidou:mybatis-plus-spring-boot3-starter:${version.mpVersion}",
+            "com.baomidou:dynamic-datasource-spring-boot3-starter": "com.baomidou:dynamic-datasource-spring-boot3-starter:${version.dynamicDSVersion}",
+            "com.google.guava:guava"                   : "com.google.guava:guava:${version.guavaVersion}",
+    ]
+}

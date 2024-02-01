@@ -1,48 +1,62 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.6'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'org.springframework.boot' version '3.2.1'
+    id "io.spring.dependency-management" version "1.1.4"
 }
-
+apply from: 'config.gradle'
 // 所有项目配置
 allprojects {
-    group 'com.fly'
-    version '1.0-SNAPSHOT'
+    group = "com.fly"
+    version = '0.0.1'
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
+    }
 }
 jar.enabled = true
 bootJar.enabled = false
+
 // 子项目配置
 subprojects {
     // JAVA源兼容版本
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_21
     // JAVA目标编译版本
-    targetCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_21
 
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
-    repositories {
-        mavenLocal()
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
-        maven { url "https://repo.huaweicloud.com/repository/maven" }
-        mavenCentral()
+    dependencyManagement {
+        dependencies {
+            println rootProject.ext.dependencies
+            for (depJar in rootProject.ext.dependencies) {
+                dependency depJar.value
+            }
+        }
     }
 
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-test'
-        // lombok依赖
-        compileOnly 'org.projectlombok:lombok:1.18.24'
+
+        compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+        implementation 'org.mapstruct:mapstruct'
+        annotationProcessor 'org.mapstruct:mapstruct-processor'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    }
+    tasks.withType(JavaCompile) {
+        options.encoding = 'utf-8'
+    }
+    tasks.withType(Javadoc) {
+        options.encoding = 'utf-8'
     }
 }
 
-test {
-    useJUnitPlatform()
-}
+
 
 

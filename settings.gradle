@@ -38,4 +38,7 @@ findProject(':springBoot-springSecurity-example:springSecurity-passwordEncoder')
 include 'springBoot-webScoket-example'
 include 'bean-convert-example'
 include 'springBoot-springMVC-example'
+include 'springBoot-jimmer-example'
+include 'springBoot-multipleDataSources-example'
+include 'springBoot-ratelimiter-example'
 
