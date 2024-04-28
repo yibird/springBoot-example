@@ -1,10 +1,10 @@
 ext {
     version = [
-            "lombokVersion"   : "1.18.26",
-            "junitVersion"    : "5.10.1",
+            "lombokVersion"   : "1.18.30",
+            "junitVersion"    : "5.10.2",
             "mysqlVersion"    : "8.0.32",
             "mapstructVersion": "1.5.3.Final",
-            "jimmerVersion"   : "0.8.78",
+            "jimmerVersion"   : "0.8.128",
             "mpVersion"       : "3.5.5",
             "dynamicDSVersion": "4.3.0",
             "guavaVersion"    : "33.0.0-jre",
@@ -18,6 +18,8 @@ ext {
             "org.mapstruct:mapstruct-processor"                   : "org.mapstruct:mapstruct-processor:${version.mapstructVersion}",
             "org.babyfish.jimmer:jimmer-spring-boot-starter"      : "org.babyfish.jimmer:jimmer-spring-boot-starter:${version.jimmerVersion}",
             "org.babyfish.jimmer:jimmer-apt"                      : "org.babyfish.jimmer:jimmer-apt:${version.jimmerVersion}",
+            "org.babyfish.jimmer:jimmer-core"                      : "org.babyfish.jimmer:jimmer-core:${version.jimmerVersion}",
+            "org.babyfish.jimmer:jimmer-sql"                      : "org.babyfish.jimmer:jimmer-sql:${version.jimmerVersion}",
             "com.baomidou:mybatis-plus-spring-boot3-starter"      : "com.baomidou:mybatis-plus-spring-boot3-starter:${version.mpVersion}",
             "com.baomidou:dynamic-datasource-spring-boot3-starter": "com.baomidou:dynamic-datasource-spring-boot3-starter:${version.dynamicDSVersion}",
             "com.google.guava:guava"                   : "com.google.guava:guava:${version.guavaVersion}",
