@@ -11,6 +11,9 @@ public interface Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id();
+
+    String name();
+
     int edition();
 
     BigDecimal price();

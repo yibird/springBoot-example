@@ -4,9 +4,15 @@ spring:
     url: jdbc:mysql://localhost:3306/jimmer_demo
     username: root
     password: 123456
+  # 开启虚拟线程
+  threads:
+    virtual:
+      enabled: true
 
 jimmer:
   dialect: org.babyfish.jimmer.sql.dialect.MySqlDialect
   show-sql: true
   pretty-sql: true
-  database-validation-mode: ERROR
+  database-validation:
+    catalog: jimmer_demo
+    mode: error

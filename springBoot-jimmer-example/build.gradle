@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.fly'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.mysql:mysql-connector-j'
+    implementation 'org.babyfish.jimmer:jimmer-spring-boot-starter'
+    annotationProcessor "org.babyfish.jimmer:jimmer-apt"
+    implementation "org.babyfish.jimmer:jimmer-core"
+    // 生成的代码所需的依赖，其他项目必然导入包含此依赖
+    compileOnly "org.babyfish.jimmer:jimmer-sql"
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+    useJUnitPlatform()
+}
